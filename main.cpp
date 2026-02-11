@@ -26,7 +26,11 @@ int main(){
         cout<<"Enter third row: "; 
         getline(cin,row3);  
         puzzle=Puzzle(row1,row2,row3); 
-        puzzle.print(); 
+        //puzzle.print(); 
     }
     return 0; 
 }
+
+// bool general_search(Puzzle,string function){
+//     vector<Puzzle>
+// }

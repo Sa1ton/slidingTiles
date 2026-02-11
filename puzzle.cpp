@@ -5,7 +5,7 @@
 #include "puzzle.h"
 using namespace std; 
 
-//default puzzle case; 
+//default puzzle case made random
 Puzzle::Puzzle(){
     array[0][0]=1; 
     array[0][1]=2; 
@@ -81,4 +81,98 @@ void Puzzle::print(){
         }
         cout<<"\n"; 
     }
+    return; 
+}
+//basic compare 
+bool Puzzle::operator==(const Puzzle& other) const{
+    for (int i=0; i<3; i++){
+        for (int j=0; j<3; j++){
+            if(array[i][j] != other.array[i][j]) return false; 
+        }
+    }
+    return true; 
+}
+
+Puzzle& Puzzle:: operator=(const Puzzle& other){
+    if(this!= &other){
+        for(int i=0; i<2; i++){
+            for(int j=0; j<2; j++){
+                array[i][j]=other.array[i][j]; 
+            }
+        }
+        zeroIndex=other.zeroIndex; 
+    }
+    return *this; 
+
+}
+//find the zero and store it 
+void Puzzle:: find0(){
+    for (int i=0; i<3; i++){
+        for (int j=0; j<3; j++){
+            if(array[i][j]==0){
+                Pos p; 
+                p.row=i; 
+                p.col=j; 
+                zeroIndex=p; 
+                return; 
+            }
+        }
+    }
+}
+
+Pos Puzzle:: getzeroIndex(){
+    return zeroIndex; 
+}
+
+//create a vector of possible puzzle states
+vector<Puzzle> Puzzle::expand(){
+    find0();
+    vector<Puzzle> childrens; 
+    //swap left
+    if (zeroIndex.col>0){
+        Puzzle child= *this; 
+        child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row][zeroIndex.col-1];
+        child.array[zeroIndex.row][zeroIndex.col-1]=0; 
+        child.cost=this->cost+1; 
+        childrens.push_back(child); 
+    }
+    //swap right
+    if(zeroIndex.col<2){
+        Puzzle child=*this; 
+        child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row][zeroIndex.col+1]; 
+        child.array[zeroIndex.row][zeroIndex.col+1]=0;
+        child.cost=this->cost+1;  
+        childrens.push_back(child); 
+    }
+    //swap up
+    if(zeroIndex.row>0){
+        Puzzle child =*this; 
+        child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row-1][zeroIndex.col]; 
+        child.array[zeroIndex.row-1][zeroIndex.col]=0; 
+        child.cost=this->cost+1;
+        childrens.push_back(child); 
+    }
+    //swap down
+    if(zeroIndex.row<2){
+        Puzzle child=*this; 
+        child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row+1][zeroIndex.col]; 
+        child.array[zeroIndex.row+1][zeroIndex.col]=0; 
+        child.cost=this->cost+1;
+        childrens.push_back(child); 
+    }
+    return childrens; 
+}
+
+string Puzzle::toString(){
+    string s; 
+    for (int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            s+=array[i][j]; 
+        }
+    }
+    return s; 
+}
+
+int Puzzle::getCost(){
+    return cost; 
 }

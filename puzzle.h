@@ -4,6 +4,17 @@
 #include <string>
 #include <vector>
 
+struct Pos{
+    int row; 
+    int col; 
+}; 
+
+//compare so search functions know what to prioritize in queues
+struct comparePuzzle{
+    bool operator()(Puzzle P1, Puzzle P2){
+        return P1.getCost() > P2.getCost();
+    }
+}; 
 class Puzzle {
 public:
     Puzzle(); 
@@ -11,8 +22,18 @@ public:
     bool isValid(); 
     bool isGoal(); 
     void print(); 
+    bool operator==(const Puzzle& other)const; 
+    Puzzle& operator=(const Puzzle& other); 
+    void find0(); 
+    Pos getzeroIndex();
+    vector<Puzzle> expand(); 
+    string toString(); 
+    int getCost(); 
+
 private:
     int array[3][3]; 
+    int cost=0; 
+    Pos zeroIndex; 
 };
 
 #endif
