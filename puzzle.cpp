@@ -85,7 +85,7 @@ void Puzzle::print(){
         }
         cout<<"\n"; 
     }
-    cout<<getCost()<<"\n"; 
+    cout<<"Where g(n) is "<<getCost()<<" and h(n) is "<<getHeuristic()<<"\n"; 
     return; 
 }
 void Puzzle:: printParents(){
@@ -192,4 +192,24 @@ int Puzzle::getCost(){
 
 void Puzzle::setParent(Puzzle* p){
     parent=p; 
+}
+
+int Puzzle::getHeuristic(){
+    return heuristic; 
+}
+
+int Puzzle::calcMisplaced(){
+    int counter=0; 
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            if(array[i][j]!=(i*3)+j+1&& array[i][j]!=0){
+                counter++; 
+            }
+        }
+    }
+    return counter; 
+}
+
+void Puzzle:: setHeuristic(int h){
+    heuristic=h; 
 }

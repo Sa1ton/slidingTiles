@@ -5,6 +5,7 @@
 #include <queue>
 #include "puzzle.h"
 #include "ucs.h"
+#include "mth.h"
 
 using namespace std; 
 
@@ -51,6 +52,7 @@ void general_search(Puzzle& p, int function){
         return; 
      }
      else if(function==2){
+        solution= mthFunction(&p); 
         return; 
      }
      else if(function ==3){

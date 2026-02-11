@@ -26,17 +26,21 @@ public:
     void setParent(Puzzle*); 
     void printParents(); 
     void printParents(Puzzle* p); 
+    int getHeuristic(); 
+    int calcMisplaced(); 
+    void setHeuristic(int); 
 
 private:
     int array[3][3]; 
     int cost=0; 
     Pos zeroIndex; 
     Puzzle* parent=nullptr; 
+    int heuristic=0; 
 };
 //compare so search functions know what to prioritize in queues
 struct comparePuzzle{
     bool operator()(Puzzle* P1, Puzzle* P2){
-        return P1->getCost() > P2->getCost();
+        return P1->getCost() +P1->getHeuristic()> P2->getCost()+P2->getHeuristic();
     }
 }; 
 #endif
