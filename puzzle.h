@@ -29,6 +29,7 @@ public:
     int getHeuristic(); 
     int calcMisplaced(); 
     void setHeuristic(int); 
+    int calcManhattanDistance(); 
 
 private:
     int array[3][3]; 

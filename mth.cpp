@@ -8,6 +8,7 @@
 Puzzle* mthFunction(Puzzle* p){
     int nodesExpanded=0; 
     int maxQueueSize=0; 
+    p->setHeuristic(p->calcMisplaced()); 
     unordered_set<string> visited; 
     priority_queue<Puzzle*, vector<Puzzle*>, comparePuzzle> nodes; 
     nodes.push(p); 

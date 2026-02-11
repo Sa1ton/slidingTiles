@@ -6,6 +6,7 @@
 #include "puzzle.h"
 #include "ucs.h"
 #include "mth.h"
+#include "mdh.h"
 
 using namespace std; 
 
@@ -14,15 +15,14 @@ void general_search(Puzzle&, int);
 int main(){
     int input; 
     Puzzle puzzle;
+    int function;
     cout<<"Welcome to my 8-Puzzle Solver. Type '1' to use a default puzzle, or '2' to create your own.\n"; 
     cin>>input; 
     if (input==1){
         puzzle=Puzzle(); 
-        puzzle.print(); 
     }
     else if (input == 2){
-        string row1, row2, row3; 
-        int function; 
+        string row1, row2, row3;  
         cout<<"Enter your puzzle, using a zero to represent the blank. Please only enter valid 8 - puzzles. Enter the puzzle demilimiting the numbers with a space. Type RETURN only when finished.\n"; 
         cout<<"Enter first row: "; 
         cin.ignore(); 
@@ -32,18 +32,17 @@ int main(){
         cout<<"Enter third row: "; 
         getline(cin,row3);  
         puzzle=Puzzle(row1,row2,row3); 
-        cout<<"Select algorithm. (1) for Uniform Cost Search, (2) for the Misplaced Tile Heuristic, or (3) the Manhattan Distance Heuristic.\n"; 
-        cin>>function;
-        general_search(puzzle, function); 
-        if(solution!=nullptr){
-            solution->printParents(); 
-        }   
-        else{
-            cout << "\nNo solution was found. Check if the puzzle is solvable.\n";
-        }
-        
     }
-    return 0; 
+    cout<<"Select algorithm. (1) for Uniform Cost Search, (2) for the Misplaced Tile Heuristic, or (3) the Manhattan Distance Heuristic.\n"; 
+    cin>>function;
+    general_search(puzzle, function); 
+    if(solution!=nullptr){
+        solution->printParents(); 
+    }   
+    else{
+        cout << "\nNo solution was found. Check if the puzzle is solvable.\n";
+        return 0; 
+    }
 }
 
 void general_search(Puzzle& p, int function){
@@ -56,6 +55,7 @@ void general_search(Puzzle& p, int function){
         return; 
      }
      else if(function ==3){
+        solution=mdhFunction(&p); 
         return; 
      }
  }

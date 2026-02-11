@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include "puzzle.h"
 using namespace std; 
 
@@ -197,7 +198,7 @@ void Puzzle::setParent(Puzzle* p){
 int Puzzle::getHeuristic(){
     return heuristic; 
 }
-
+//Function to counter number of misplaced for misplaced tile heuristic
 int Puzzle::calcMisplaced(){
     int counter=0; 
     for(int i=0; i<3; i++){
@@ -212,4 +213,21 @@ int Puzzle::calcMisplaced(){
 
 void Puzzle:: setHeuristic(int h){
     heuristic=h; 
+}
+
+//Function to counter number of misplaced for misplaced tile heuristic
+int Puzzle::calcManhattanDistance(){
+    int totalDistance=0; 
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            if(array[i][j]!=(i*3)+j+1&& array[i][j]!=0){
+                int value=array[i][j]; 
+                int correctRow= ((value-1)/3); //8/3
+                int correctCol=((value-1)%3);
+                int distance=abs(i-correctRow)+abs(j-correctCol); 
+                totalDistance+=distance; 
+            }
+        }
+    }
+    return totalDistance; 
 }
