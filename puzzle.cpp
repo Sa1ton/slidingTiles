@@ -16,6 +16,8 @@ Puzzle::Puzzle(){
     array[2][0]=4; 
     array[2][1]=7; 
     array[2][2]=8; 
+    parent=nullptr; 
+    cost=0; 
 }
 Puzzle::Puzzle(string row1, string row2, string row3){
     stringstream r1(row1); 
@@ -36,6 +38,8 @@ Puzzle::Puzzle(string row1, string row2, string row3){
     array[2][0]=r3c1; 
     array[2][1]=r3c2; 
     array[2][2]=r3c3; 
+    parent=nullptr; 
+    cost=0; 
 }
 //checks if the user's puzzle is valid, 
 //if nine is entered or repeat number, return false
@@ -58,7 +62,7 @@ bool Puzzle::isValid(){
     return true; 
 }
 
-bool Puzzle::isGoal(){
+bool Puzzle::isGoal() const{
     for(int i=0; i<3; i++){
         for(int j=0; j<3; j++){
             if(i==2&&j==2){
@@ -81,7 +85,18 @@ void Puzzle::print(){
         }
         cout<<"\n"; 
     }
+    cout<<getCost()<<"\n"; 
     return; 
+}
+void Puzzle:: printParents(){
+    printParents(this); 
+}
+void Puzzle:: printParents(Puzzle* p){
+    if(p==nullptr){
+        return; 
+    } 
+    printParents(p->parent); 
+    p->print(); 
 }
 //basic compare 
 bool Puzzle::operator==(const Puzzle& other) const{
@@ -95,8 +110,8 @@ bool Puzzle::operator==(const Puzzle& other) const{
 
 Puzzle& Puzzle:: operator=(const Puzzle& other){
     if(this!= &other){
-        for(int i=0; i<2; i++){
-            for(int j=0; j<2; j++){
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
                 array[i][j]=other.array[i][j]; 
             }
         }
@@ -133,16 +148,14 @@ vector<Puzzle> Puzzle::expand(){
         Puzzle child= *this; 
         child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row][zeroIndex.col-1];
         child.array[zeroIndex.row][zeroIndex.col-1]=0; 
-        child.cost=this->cost+1; 
-        childrens.push_back(child); 
+        child.cost=this->cost+1;         childrens.push_back(child); 
     }
     //swap right
     if(zeroIndex.col<2){
         Puzzle child=*this; 
         child.array[zeroIndex.row][zeroIndex.col]=child.array[zeroIndex.row][zeroIndex.col+1]; 
         child.array[zeroIndex.row][zeroIndex.col+1]=0;
-        child.cost=this->cost+1;  
-        childrens.push_back(child); 
+        child.cost=this->cost+1;          childrens.push_back(child); 
     }
     //swap up
     if(zeroIndex.row>0){
@@ -167,7 +180,7 @@ string Puzzle::toString(){
     string s; 
     for (int i=0; i<3; i++){
         for(int j=0; j<3; j++){
-            s+=array[i][j]; 
+            s+=to_string(array[i][j]); 
         }
     }
     return s; 
@@ -175,4 +188,8 @@ string Puzzle::toString(){
 
 int Puzzle::getCost(){
     return cost; 
+}
+
+void Puzzle::setParent(Puzzle* p){
+    parent=p; 
 }

@@ -3,8 +3,8 @@
 #include <queue>
 #include <vector>
 #include <string>
+#include "puzzle.h"
 using namespace std; 
-class ucsFunction{
-     
-}; 
+
+Puzzle* ucsFunction(Puzzle*); 
 #endif
