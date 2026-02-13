@@ -4,7 +4,7 @@
 #include "mth.h"
 #include "puzzle.h"
 
-//initial setup 
+//Misplaced Tile Function
 Puzzle* mthFunction(Puzzle* p){
     int nodesExpanded=0; 
     int maxQueueSize=0; 

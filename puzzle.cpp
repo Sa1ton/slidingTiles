@@ -6,7 +6,7 @@
 #include "puzzle.h"
 using namespace std; 
 
-//default puzzle case made random
+//default puzzle case made random. Using array to store puzzle state
 Puzzle::Puzzle(){
     array[0][0]=1; 
     array[0][1]=2; 
@@ -20,6 +20,9 @@ Puzzle::Puzzle(){
     parent=nullptr; 
     cost=0; 
 }
+
+//Getline input takes in 3 strings. We need to convert them into ints
+//after that we put them into an array
 Puzzle::Puzzle(string row1, string row2, string row3){
     stringstream r1(row1); 
     int r1c1, r1c2,r1c3;
@@ -92,6 +95,8 @@ void Puzzle::print(){
 void Puzzle:: printParents(){
     printParents(this); 
 }
+
+//Recursive print function to trace back parent. 
 void Puzzle:: printParents(Puzzle* p){
     if(p==nullptr){
         return; 
@@ -177,6 +182,8 @@ vector<Puzzle> Puzzle::expand(){
     return childrens; 
 }
 
+//I created a toString function so that I can make dictionary for 
+//explored state
 string Puzzle::toString(){
     string s; 
     for (int i=0; i<3; i++){
@@ -215,7 +222,7 @@ void Puzzle:: setHeuristic(int h){
     heuristic=h; 
 }
 
-//Function to counter number of misplaced for misplaced tile heuristic
+//Function to add up the distance of all misplaced tile. Tiles cannot be moved diagonally 
 int Puzzle::calcManhattanDistance(){
     int totalDistance=0; 
     for(int i=0; i<3; i++){

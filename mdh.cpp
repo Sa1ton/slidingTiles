@@ -5,7 +5,7 @@
 #include "mdh.h"
 #include "puzzle.h"
 
-//initial setup 
+//Manhattan Distance Function
 Puzzle* mdhFunction(Puzzle* p){
     int nodesExpanded=0; 
     int maxQueueSize=0; 

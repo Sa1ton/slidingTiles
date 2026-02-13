@@ -36,9 +36,10 @@ private:
     int cost=0; 
     Pos zeroIndex; 
     Puzzle* parent=nullptr; 
-    int heuristic=0; 
+    int heuristic=0; //set to 0 foe uniformed cost search
 };
-//compare so search functions know what to prioritize in queues
+//functional object to compare so search functions know what to prioritize in priority queues queues
+//We add the cost and the heuristic, whichever has the 
 struct comparePuzzle{
     bool operator()(Puzzle* P1, Puzzle* P2){
         return P1->getCost() +P1->getHeuristic()> P2->getCost()+P2->getHeuristic();
