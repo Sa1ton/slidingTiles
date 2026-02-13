@@ -1,0 +1,23 @@
+# Compiled binaries and objects
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.out
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build directories
+build/
+dist/
+bin/
+
+# Temporary files
+*.tmp
