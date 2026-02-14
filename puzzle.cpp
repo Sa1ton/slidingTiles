@@ -8,14 +8,14 @@ using namespace std;
 
 //default puzzle case made random. Using array to store puzzle state
 Puzzle::Puzzle(){
-    array[0][0]=1; 
-    array[0][1]=2; 
-    array[0][2]=3; 
-    array[1][0]=5; 
-    array[1][1]=0; 
-    array[1][2]=6; 
-    array[2][0]=4; 
-    array[2][1]=7; 
+    array[0][0]=0; 
+    array[0][1]=7; 
+    array[0][2]=2; 
+    array[1][0]=4; 
+    array[1][1]=6; 
+    array[1][2]=1; 
+    array[2][0]=3; 
+    array[2][1]=5; 
     array[2][2]=8; 
     parent=nullptr; 
     cost=0; 
@@ -196,6 +196,10 @@ string Puzzle::toString(){
 
 int Puzzle::getCost(){
     return cost; 
+}
+void Puzzle::setCost(int c){
+    cost=c;
+    return; 
 }
 
 void Puzzle::setParent(Puzzle* p){

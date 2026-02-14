@@ -23,6 +23,7 @@ public:
     vector<Puzzle> expand(); 
     string toString(); 
     int getCost(); 
+    void setCost(int) ;
     void setParent(Puzzle*); 
     void printParents(); 
     void printParents(Puzzle* p); 
